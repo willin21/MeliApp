@@ -34,6 +34,7 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				App/Info.plist,
+				Docs/ai/architecture_documentation_prompt.md,
 			);
 			target = C456BBE62F4A77D300F1DDAD /* MeliApp */;
 		};
@@ -53,11 +54,22 @@
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
+/* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+		C48FB2C72F4E71CE002E07F3 /* Exceptions for "MeliApp" folder in "Compile Sources" phase from "MeliApp" target */ = {
+			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
+			buildPhase = C456BBE32F4A77D300F1DDAD /* Sources */;
+			membershipExceptions = (
+				Docs/ai/architecture_documentation_prompt.md,
+			);
+		};
+/* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		C456BBE92F4A77D300F1DDAD /* MeliApp */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				C41374C82F4BA8C6001B0E76 /* Exceptions for "MeliApp" folder in "MeliApp" target */,
+				C48FB2C72F4E71CE002E07F3 /* Exceptions for "MeliApp" folder in "Compile Sources" phase from "MeliApp" target */,
 			);
 			path = MeliApp;
 			sourceTree = "<group>";
