@@ -8,6 +8,14 @@
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>MELI_ACCESS_TOKEN</key>
 	<string>APP_USR-8360083651166289-022418-a66d8366d9cc4616e4c96413bc098325-2324480138</string>
+	<key>MELI_REFRESH_TOKEN</key>
+	<string>TG-699e26e33c0fdf00016fd2a7-2324480138</string>
+	<key>MELI_CLIENT_ID</key>
+	<string>8360083651166289</string>
+	<key>MELI_CLIENT_SECRET</key>
+	<string>bo0UroRIahfSNFrNLN3CWNvv4qQ5WLuV</string>
+	<key>MELI_ENVIRONMENT</key>
+	<string>production</string>
 	<key>MELI_USER_ID</key>
 	<string>2324480138</string>
 	<key>UILaunchScreen</key>

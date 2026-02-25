@@ -10,18 +10,14 @@ internal import os
 
 final class SearchRepository: SearchRepositoryProtocol {
     private let httpClient: HTTPClient
-    private let credentialsProvider: MercadoLibreCredentialsProvider
 
-    init(httpClient: HTTPClient, credentialsProvider: MercadoLibreCredentialsProvider) {
+    init(httpClient: HTTPClient) {
         self.httpClient = httpClient
-        self.credentialsProvider = credentialsProvider
     }
 
     func searchItems(query: String) async throws -> SearchPage {
-        let token = try credentialsProvider.accessToken()
-
         let dto = try await httpClient.send(
-            MercadoLibreEndpoints.productsSearch(query: query, token: token, limit: 10, offset: 0),
+            MercadoLibreEndpoints.productsSearch(query: query, limit: 10, offset: 0),
             as: ProductsSearchResponseDTO.self
         )
 
@@ -29,10 +25,8 @@ final class SearchRepository: SearchRepositoryProtocol {
     }
 
     func fetchItemDetail(id: String) async throws -> ItemDetail {
-        let token = try credentialsProvider.accessToken()
-
         let dto = try await httpClient.send(
-            MercadoLibreEndpoints.productDetailById(productId: id, token: token),
+            MercadoLibreEndpoints.productDetailById(productId: id),
             as: ProductsSearchResponseDTO.self
         )
 
