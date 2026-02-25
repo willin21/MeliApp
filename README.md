@@ -129,6 +129,38 @@ Networking is implemented using:
 
 The networking layer is isolated from UI and domain logic.
 
+## API Endpoints Used
+The application integrates directly with the official MercadoLibre public APIs.
+
+### 1️⃣ Search Items
+Used to retrieve a paginated list of products based on a search query.
+
+**Endpoint**
+GET https://api.mercadolibre.com/sites/{SITE_ID}/search?q={query}
+
+**Purpose**
+- Fetch product list
+- Retrieve basic product information
+- Populate search results screen
+---
+
+### 2️⃣ Item Detail
+Used to retrieve detailed information about a specific product.
+
+**Endpoint**
+GET https://api.mercadolibre.com/items/{ITEM_ID}
+
+**Purpose**
+- Retrieve detailed product attributes
+- Show price, availability, condition
+- Display extended product information
+
+### Integration Notes
+- All requests are executed through a generic `HTTPClient`.
+- Responses are decoded into DTOs and mapped into domain models.
+- HTTP status codes are categorized and converted into typed `AppError`.
+- Networking logic is fully isolated from presentation and domain layers.
+
 ## Testing Strategy
 Unit tests were implemented for:
 - SearchViewModel
@@ -171,6 +203,42 @@ Clean Architecture was chosen to:
 - Maximize testability
 - Decouple networking from UI
 - Facilitate future feature expansion
+
+## AI Usage
+Artificial Intelligence tools were used as development assistants during this project.
+
+### Models
+GPT-4 / GPT-5 family models
+
+### Scope of AI Assistance
+AI was used to assist with:
+
+- Refinement of architectural documentation
+- Generation of architecture diagrams in Mermaid format
+- Review and improvement of error handling structure
+- Unit test validation adjustments
+- README drafting and formatting
+
+AI assistance focused on documentation clarity, structural validation, and best practice suggestions.
+
+### Human Oversight
+
+All AI-generated suggestions were:
+
+- Manually reviewed
+- Adjusted when necessary
+- Aligned with the actual project implementation
+- Verified through compilation and unit testing
+
+AI was used as a productivity and documentation assistant, not as an autonomous code generator.
+
+### Prompt Documentation
+The prompts used to generate technical documentation are included in the repository:
+
+- `docs/ai/README_prompt.md`
+- `docs/ai/architecture_documentation_prompt.md`
+
+These prompts reflect how AI was guided to produce structured documentation aligned with the real project implementation.
 
 ## Final Notes
 This implementation focuses on:
