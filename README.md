@@ -17,12 +17,71 @@ The goal is to build a native iOS application that:
 ## Architecture
 This project follows Clean Architecture principles combined with MVVM.
 
-### Architecture Overview
-1) SwiftUI View
-2) ViewModel (@MainActor)
-3) UseCase (Application Layer)
-4) Repository (Data Abstraction)
-5) HTTPClient (Infrastructure Layer)
+## Architecture Diagrams
+1️⃣ Layered Architecture Diagram
+flowchart TD
+    
+    A [SwiftUI View] --> B[ViewModel @MainActor]
+    
+    B --> C[UseCase]
+    
+    C --> D[Repository Protocol]
+    
+    D --> E[Repository Implementation]
+    
+    E --> F[HTTPClient]
+    
+    F --> G[MercadoLibre API]
+    
+Explanation
+- The View observes state changes.
+- The ViewModel manages UI state and user interaction.
+- The UseCase contains application-specific logic.
+- The Repository abstracts data sources.
+- The HTTPClient handles networking and error mapping.
+- The external API is isolated from upper layers.
+
+This ensures:
+- Clear separation of concerns
+- Testability
+- Scalability
+- Independent layer evolution
+
+2️⃣ Data Flow Diagram (Search Flow)
+
+sequenceDiagram
+
+    participant User
+    participant View
+    participant ViewModel
+    participant UseCase
+    participant Repository
+    participant HTTPClient
+    participant API
+
+    User->>View: Types search query
+    View->>ViewModel: onQueryChanged()
+    ViewModel->>UseCase: execute(query)
+    UseCase->>Repository: searchItems()
+    Repository->>HTTPClient: send()
+    HTTPClient->>API: HTTP Request
+    API-->>HTTPClient: JSON Response
+    HTTPClient-->>Repository: Decoded DTO
+    Repository-->>UseCase: Domain Model
+    UseCase-->>ViewModel: SearchPage
+    ViewModel-->>View: Updated State
+
+### Architectural Rationale
+Clean Architecture was selected to:
+- Separate business logic from UI and infrastructure
+- Improve testability of ViewModels and UseCases
+- Isolate networking concerns
+- Facilitate future scalability (pagination, caching, new data sources)
+
+This design allows:
+- Independent testing of ViewModels
+- Clear responsibility boundaries
+- Safer concurrency management with @MainActor at presentation layer only
 
 ### Layers
 Presentation
@@ -237,6 +296,7 @@ The prompts used to generate technical documentation are included in the reposit
 
 - `docs/ai/README_prompt.md`
 - `docs/ai/architecture_documentation_prompt.md`
+- `docs/ai/oauth_refresh_token_prompt.md`
 
 These prompts reflect how AI was guided to produce structured documentation aligned with the real project implementation.
 
