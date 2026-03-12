@@ -10,6 +10,7 @@ import Foundation
 final class AppDI {
     private let httpClient: HTTPClient
     private let repository: SearchRepositoryProtocol
+    let favoritesStore: FavoritesStore
 
     init() {
         let configuration = (try? AppConfiguration.loadAtLaunch()) ?? AppConfiguration(
@@ -36,6 +37,9 @@ final class AppDI {
         self.repository = SearchRepository(
             httpClient: httpClient
         )
+
+        let favoritesRepository = UserDefaultsFavoritesRepository()
+        self.favoritesStore = FavoritesStore(repository: favoritesRepository)
     }
 
     func makeSearchViewModel() -> SearchViewModel {

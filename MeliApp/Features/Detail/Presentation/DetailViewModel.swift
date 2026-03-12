@@ -12,7 +12,7 @@ internal import os
 final class DetailViewModel: ObservableObject {
     @Published var state: ViewState<DetailPresentationModel> = .idle
 
-    private let itemId: String
+    let itemId: String
     private let fetchItemDetailUseCase: FetchItemDetailUseCase
 
     init(itemId: String, fetchItemDetailUseCase: FetchItemDetailUseCase) {

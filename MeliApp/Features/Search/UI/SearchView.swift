@@ -10,6 +10,7 @@ import SwiftUI
 struct SearchView: View {
     @StateObject var viewModel: SearchViewModel
     let di: AppDI
+    @EnvironmentObject private var favoritesStore: FavoritesStore
     
     @SceneStorage("search.query") private var persistedQuery: String = ""
     
@@ -27,6 +28,17 @@ struct SearchView: View {
         }
         .navigationBarTitleDisplayMode(.inline)
         .navigationTitle("Buscar productos")
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                NavigationLink {
+                    FavoritesListView(di: di)
+                } label: {
+                    Image(systemName: favoritesStore.favoriteItems.isEmpty ? "heart" : "heart.fill")
+                        .foregroundStyle(favoritesStore.favoriteItems.isEmpty ? Color.primary : Color.red)
+                        .accessibilityLabel("Favoritos")
+                }
+            }
+        }
         .searchable(
             text: $persistedQuery,
             placement: .navigationBarDrawer(displayMode: .always),
@@ -94,7 +106,11 @@ struct SearchView: View {
                         itemTitleFallback: item.title
                     )
                 } label: {
-                    ItemRowView(item: item)
+                    ItemRowView(
+                        item: item,
+                        isFavorite: favoritesStore.isFavorite(item.id),
+                        onToggleFavorite: { favoritesStore.toggle(item: item) }
+                    )
                 }
             }
             .listStyle(.plain)

@@ -9,6 +9,8 @@ import SwiftUI
 
 struct ItemRowView: View {
     let item: ItemSummary
+    let isFavorite: Bool
+    let onToggleFavorite: () -> Void
 
     var body: some View {
         HStack(spacing: 12) {
@@ -42,6 +44,16 @@ struct ItemRowView: View {
             }
 
             Spacer()
+
+            Button(action: onToggleFavorite) {
+                Image(systemName: isFavorite ? "heart.fill" : "heart")
+                    .imageScale(.medium)
+                    .foregroundStyle(isFavorite ? Color.red : Color.secondary)
+                    .padding(8)
+                    .contentShape(Rectangle())
+            }
+            .buttonStyle(.borderless)
+            .accessibilityLabel(isFavorite ? "Quitar de favoritos" : "Agregar a favoritos")
         }
         .padding(.vertical, 4)
     }

@@ -10,6 +10,7 @@ import SwiftUI
 struct DetailView: View {
     @StateObject var viewModel: DetailViewModel
     let itemTitleFallback: String
+    @EnvironmentObject private var favoritesStore: FavoritesStore
 
     var body: some View {
         ZStack {
@@ -20,9 +21,46 @@ struct DetailView: View {
         }
         .navigationTitle(itemTitleFallback)
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button {
+                    favoritesStore.toggle(item: favoriteSnapshot)
+                } label: {
+                    Image(systemName: favoritesStore.isFavorite(viewModel.itemId) ? "heart.fill" : "heart")
+                        .foregroundStyle(favoritesStore.isFavorite(viewModel.itemId) ? Color.red : Color.primary)
+                        .accessibilityLabel(
+                            favoritesStore.isFavorite(viewModel.itemId) ? "Quitar de favoritos" : "Agregar a favoritos"
+                        )
+                }
+            }
+        }
         .task {
             await viewModel.loadIfNeeded()
         }
+    }
+
+    private var favoriteSnapshot: ItemSummary {
+        if case .loaded(let item) = viewModel.state {
+            return ItemSummary(
+                id: item.id,
+                title: item.title,
+                thumbnailURL: item.imageURL,
+                price: nil,
+                currencyId: nil,
+                condition: nil,
+                location: nil
+            )
+        }
+
+        return ItemSummary(
+            id: viewModel.itemId,
+            title: itemTitleFallback,
+            thumbnailURL: nil,
+            price: nil,
+            currencyId: nil,
+            condition: nil,
+            location: nil
+        )
     }
 
     @ViewBuilder

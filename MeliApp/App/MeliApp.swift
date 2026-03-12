@@ -19,6 +19,7 @@ struct MeliApp: App {
                     di: di
                 )
             }
+            .environmentObject(di.favoritesStore)
         }
     }
 }

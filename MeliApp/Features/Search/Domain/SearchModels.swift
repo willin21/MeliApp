@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ItemSummary: Identifiable, Hashable {
+struct ItemSummary: Identifiable, Hashable, Codable, Sendable {
     let id: String
     let title: String
     let thumbnailURL: String?
